@@ -73,7 +73,7 @@ function generalized_swift_hohenberg_2d(;
 
     #start with fft of ψ
     psi_hat = fft(psi)
-    chi_hat = zeros(ComplexF64, Nx, Ny)  # χ = ∇²ζ = 0  →  v = 0
+    chi_hat = zeros(ComplexF64, Nx, Ny)  # χ = ∇²ζ = 0  ->  v = 0
 
     snapshots = store_snapshots ? Matrix{Float64}[] : nothing # just there to store some things for animation
     times = Float64[]
@@ -99,7 +99,7 @@ function generalized_swift_hohenberg_2d(;
         adv = vx .* psi_x .+ vy .* psi_y # v·∇ψ
         nonlinear_psi_hat = fft(-psi.^3 .- adv) # fft of nonlinear part for ψ equation
         
-        # Mean-flow forcing: gm * (∂x ∇²ψ ∂yψ - ∂y ∇²ψ ∂xψ)
+        #  gm * (∂x ∇²ψ ∂yψ - ∂y ∇²ψ ∂xψ)
         forcing_hat = fft(gm .* (lap_psi_x .* psi_y .- lap_psi_y .* psi_x)) # gm·F for χ equation
         
         ###############################################################
