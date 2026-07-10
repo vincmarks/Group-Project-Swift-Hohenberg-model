@@ -49,7 +49,7 @@ function generalized_swift_hohenberg_2d(;
 
     kx = fftfreq(Nx, Nx / Lx) .* 2π
     ky = fftfreq(Ny, Ny / Ly) .* 2π
-    KX = kx .+ 0 .* ky' # # (Nx×1) + (1×Ny) → Nx×Ny ->   x-wavenumber for psi_hat[i,j] , KX[i,j] = kx[i], 
+    KX = kx .+ 0 .* ky' # (Nx×1) + (1×Ny) → Nx×Ny ->   x-wavenumber for psi_hat[i,j] , KX[i,j] = kx[i], 
     KY = 0 .* kx .+ ky'
     K2 = KX.^2 .+ KY.^2
 
