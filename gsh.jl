@@ -1,27 +1,4 @@
 # Generalized Swift-Hohenberg model 
-using Pkg
-Pkg.activate(@__DIR__)
-Pkg.instantiate()
-using FFTW
-using Plots
-using Random
-using LaTeXStrings
-
-figdir = joinpath(@__DIR__, "Plots")
-mkpath(figdir)
-
-function plot_kwargs()
-    fontsizes = (
-        xtickfontsize = 14,
-        ytickfontsize = 14,
-        xguidefontsize = 16,
-        yguidefontsize = 16,
-        legendfontsize = 14,
-    )
-    (; linewidth = 3, markersize = 6, markerstrokewidth = 0,
-       fontsizes..., size = (600, 500))
-end
-
 
 function generalized_swift_hohenberg_2d(;
     Nx = 256,
@@ -131,8 +108,8 @@ function plot_gsh_final(data; filename = joinpath(figdir, "gsh_meanflow_final.pn
         aspect_ratio = 1,
         xlims = extrema(data.x), ylims = extrema(data.y),
         xlabel = "x", ylabel = "y",
-        title = "ψ at t = $(round(data.T, digits = 2))",
-        colorbar_title = "ψ",
+        title = "t = $(round(data.T, digits = 2))",
+        colorbar_title = L"\psi",
         c = :viridis,
         framestyle = :box,
         right_margin = 5Plots.mm,
@@ -175,7 +152,7 @@ function generalized_swift_hohenberg_2d_anim(;
         plt = heatmap(data.x, data.y, ψ', aspect_ratio = 1,
             xlabel = "x", ylabel = "y",
             title = "Generalized Swift-Hohenberg: t = $(round(t, digits = 2))",
-            size = (800, 700), c = :viridis)
+            size = (800, 700), c = :viridis, clims = (-1.0, 1.0), colorbar_title = L"\phi",)
         frame(anim, plt)
     end
     gif(anim, filename, fps = fps)
@@ -197,4 +174,4 @@ data = generalized_swift_hohenberg_2d(
     c2 = 2.0,
 )
 plot_gsh_final(data)
- generalized_swift_hohenberg_2d_anim(T = 100.0, nframes = 150)
+generalized_swift_hohenberg_2d_anim(T = 100.0, nframes = 150)
